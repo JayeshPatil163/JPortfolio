@@ -46,12 +46,6 @@ const Hero = () => {
   id="hero"
   className="relative min-h-scree flex flex-col justify-between px-12 py-10 overflow-hidden"
 >
-  <div className="flex justify-between text-xs tracking-widest">
-    <div className="space-y-1">
-      <p className="font-light">JAYESH PATIL</p>
-      <p className="text-neutral-400">FULL-STACK DEVELOPER</p>
-    </div>
-  </div>
 
   <div className="flex flex-col items-center justify-center text-center leading-none">
     <h1 className="font-sans font-bold text-[10vw] md:text-[12vw] tracking-tight">
