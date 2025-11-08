@@ -33,46 +33,61 @@ const Hero = () => {
   useEffect(() => {
     const text = devtag.current;
     if (!text) return;
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: text,
-        start: "top top+=30%",
-        end: "bottom top+=30%",
-        scrub: true,
-        markers: false,
-        pin: true,
-      },
-    });
 
-    tl.fromTo(
-      text,
-      {
-        scale: 1,
-        opacity: 1,
-      },
-      {
-        scale: 0.8,
-        rotateY: -30,
-        skewY: 10,
-        transformOrigin: "right center",
-        ease: "power2.inOut",
-      }
-    );
-
-    gsap.to(text,
-      {
+    const onReady = () => {
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: text,
-          start: "top+=1 top+=30%",
-          end: "bottom top+=80%",
+          start: "top top+=30%",
+          end: "bottom top+=30%",
           scrub: true,
           markers: false,
           pin: true,
         },
-      }
-    );
+      });
+    
+      tl.fromTo(
+        text,
+        {
+          scale: 1,
+          opacity: 1,
+        },
+        {
+          scale: 0.8,
+          rotateY: -30,
+          skewY: 10,
+          transformOrigin: "right center",
+          ease: "power2.inOut",
+        }
+      );
+    
+      gsap.to(text,
+        {
+          scrollTrigger: {
+            trigger: text,
+            start: "top+=1 top+=30%",
+            end: "bottom top+=80%",
+            scrub: true,
+            markers: false,
+            pin: true,
+          },
+        }
+      );
+    
+      ScrollTrigger.refresh();
+    };
 
-    return () => {tl.kill()};
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(onReady);
+    } else {
+      window.addEventListener("load", onReady);
+    }
+
+    return () => {
+      window.removeEventListener("load", onReady);
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
   }, []);
 
   return (
