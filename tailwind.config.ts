@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         sans: ['Anton SC', 'sans-serif'],
         space: ['Gilroy', 'sans-serif'],
+        vanchrome: ['Vanchrome Edge', 'sans-serif']
       },
       colors: {
         border: "hsl(var(--border))",

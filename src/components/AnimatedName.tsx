@@ -11,10 +11,12 @@ const AnimatedName = () => {
   const nameRef = useRef<HTMLDivElement>(null);
   const subRef = useRef<HTMLSpanElement>(null);
   const myNameRef = useRef<HTMLDivElement>(null);
-  const [open, setOpen] = useState(false);
-const [emailOpen, setEmailOpen] = useState(false);
 
-  // const [compact, setCompact] = useState(true);
+  const scrollToSection = (id: string) => {
+    const section = document.getElementById(id);
+    section?.scrollIntoView({ behavior: "smooth" });
+  };
+
 
   useEffect(() => {
     const name = nameRef.current;
@@ -25,7 +27,7 @@ const [emailOpen, setEmailOpen] = useState(false);
       scrollTrigger: {
         trigger: document.body,
         start: "top top",
-        end: "+=500",
+        end: "+=1500",
         scrub: 2,
       },
     });
@@ -49,13 +51,12 @@ const [emailOpen, setEmailOpen] = useState(false);
       transform: "translate(0, 0)",
       duration: 0.5,
       scrub: true,
+      pin: true
     });
 
     tl.to(myName, {
       opacity: 1,
     });
-
-    // tl.from(name, {setCompact(true)}, {duration: 0.5});
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -64,7 +65,34 @@ const [emailOpen, setEmailOpen] = useState(false);
 
   return (
     <section className="section-container" id="name">
-      <div className="fixed top-2 right-12 text-right space-y-1">
+      <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
+      <nav
+        className="flex items-center gap-5 px-10 py-1 rounded-full
+        backdrop-blur-lg shadow-lg border text-neutral-400 border-white/20 font-medium text-lg tracking-wide
+        transition-all duration-300"
+        style={{ fontSize: "0.8em" }}
+      >
+        <button
+          onClick={() => scrollToSection("hero")}
+          className="hover:text-white transition-colors"
+        >
+          Home
+        </button>
+        <button
+          onClick={() => scrollToSection("projects")}
+          className="hover:text-white transition-colors"
+        >
+          Projects
+        </button>
+        <button
+          onClick={() => scrollToSection("contact")}
+          className="hover:text-white transition-colors"
+        >
+          Contact
+        </button>
+      </nav>
+    </div>
+      <div className="fixed top-2 right-12 text-right space-y-1 z-50">
         <p className="text-neutral-400" style={{ fontSize: "0.8em" }}>OPEN TO WORK</p>
         <p className="text-neutral-400" style={{ fontSize: "0.8em" }}>FROM DECEMBER 2025</p>
         {/* <button className="border border-neutral-600 px-4 py-1 mt-2 rounded-full text-sm hover:bg-white hover:text-black transition" style={{ fontSize: "0.8em" }}>
