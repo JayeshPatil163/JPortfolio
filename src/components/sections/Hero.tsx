@@ -45,7 +45,7 @@ const Hero = () => {
           pin: true,
         },
       });
-    
+
       tl.fromTo(
         text,
         {
@@ -60,20 +60,20 @@ const Hero = () => {
           ease: "power2.inOut",
         }
       );
-    
+
       gsap.to(text,
         {
           scrollTrigger: {
             trigger: text,
             start: "top+=1 top+=30%",
-            end: "bottom top+=80%",
+            end: "bottom top+=70%",
             scrub: true,
             markers: false,
             pin: true,
           },
         }
       );
-    
+
       ScrollTrigger.refresh();
     };
 
@@ -97,21 +97,28 @@ const Hero = () => {
 >
 
   <div ref={devtag} className="relative flex flex-col right-0 pt-10 text-right leading-none">
-    <h1 className="font-vanchrome text-[10vw] md:text-[12vw] tracking-tight" style={{ fontSize: "20em" }}>
+    {/* <h1 className="font-vanchrome text-[10vw] md:text-[12vw] tracking-tight" style={{ fontSize: "20em" }}>
       FULL — STACK
     </h1>
     <h1 className="font-sans font-bold text-[10vw] md:text-[12vw] tracking-tight" style={{ fontSize: "20em" }}>
       DEVELOPER
-    </h1>
+    </h1> */}
+    <h1 className="font-vanchrome tracking-tight text-[clamp(3rem,20vw,20rem)]">
+    FULL — STACK
+  </h1>
+  <h1 className="font-sans font-bold tracking-tight text-[clamp(3rem,20vw,20rem)]">
+    DEVELOPER
+  </h1>
   </div>
 
   <div className="justify-between text-xs md:text-sm pt-56 pb-20">
-    <h1 className="font-bold mb-7" style={{fontSize: "2.5em"}}>Driven full-stack & open-source dev</h1> 
-    <p className="max-w-md text-neutral-400">
-      passionate about building modern,
-      interactive web apps powered by AI. 500+ problems solved, top 14% on
-      LeetCode. Winner of AlgoBharat HackSeries & multiple hackathons. Focused
-      on impactful solutions and exploring emerging tech.
+    <h1 className="font-bold mb-7 text-[clamp(1rem,2vw,2rem)]">Driven full-stack & open-source dev</h1> 
+    <p className="text-[clamp(0.5rem,1vw,1rem)] justify-start text-neutral-400">
+      I'm a creative developer passionate about building modern, interactive<br/>
+      web apps powered by AI. 500+ problems solved, top 14% on LeetCode.<br/>
+      Winner of AlgoBharat HackSeries & multiple hackathons.<br/>
+      Focused on creating interactive experiences, impactful and innovative<br/>
+      solutions and exploring emerging tech.
     </p>
   </div>
 
