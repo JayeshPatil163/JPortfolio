@@ -64,10 +64,9 @@ export default function ContactMorph() {
           variants={buttonVariants}
           initial="closed"
           animate={expanded ? "open" : "closed"}
-          className="border border-neutral-600 pdx-4 py-1 mt-2 rounded-full text-sm overflow-hidden bg-transparent text-neutral-200 hover:bg-white hover:text-black transition-all relative z-10"
+          className="border border-neutral-600 backdrop-blur-sm pdx-4 py-1 mt-2 rounded-full text-sm overflow-hidden bg-transparent  hover:bg-[url('https://i.pinimg.com/736x/44/69/93/44699392158a47e6a74b36086d55d2a1.jpg')] bg-cover bg-center hover:text-black transition-all relative z-10"
           style={{ fontSize: "0.8em" }}
         >
-          {/* Hide text when expanded */}
           <motion.span
             initial={{ opacity: 1 }}
             animate={{ opacity: expanded ? 0 : 1 }}

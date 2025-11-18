@@ -65,6 +65,7 @@ const Projects = () => {
   }, []);
 
   return (
+    <section>
     <section className="section-container" id="projects">
       <div className="max-w-6xl w-full space-y-16">
         <h2 ref={titleRef} className="section-title">
@@ -83,6 +84,10 @@ const Projects = () => {
           ))}
         </div>
       </div>
+    </section>
+    <section id="hiii" className="section-container">
+          <h1>Hiii there</h1>
+    </section>
     </section>
   );
 };

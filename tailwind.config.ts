@@ -16,7 +16,10 @@ export default {
       fontFamily: {
         sans: ['Anton SC', 'sans-serif'],
         space: ['Gilroy', 'sans-serif'],
-        vanchrome: ['Vanchrome Edge', 'sans-serif']
+        vanchrome: ['Vanchrome Edge', 'sans-serif'],
+        madfool: ['Madfool', 'sans-serif'],
+        maintanker: ['Maintanker', 'sans-serif'],
+        wark: ['Wark', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

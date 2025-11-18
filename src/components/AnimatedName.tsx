@@ -1,15 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { motion, AnimatePresence } from "framer-motion";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Mail, Github, Linkedin, Twitter } from "lucide-react";
 import ContactMorph from "./ContactMorph";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const AnimatedName = () => {
   const nameRef = useRef<HTMLDivElement>(null);
-  const subRef = useRef<HTMLDivElement>(null);
+  const subRef = useRef<HTMLSpanElement[]>([]);
+  subRef.current = [];
   const myNameRef = useRef<HTMLDivElement>(null);
 
   const scrollToSection = (id: string) => {
@@ -34,6 +33,9 @@ const AnimatedName = () => {
 
     gsap.to(sub, {
       opacity: 0,
+      fontSize: "0rem",
+      x: 0,
+      y: 0,
       duration: 0.5,
       scrollTrigger: {
         trigger: document.body,
@@ -43,22 +45,6 @@ const AnimatedName = () => {
       },
     });
 
-    gsap.fromTo(
-      sub,
-      { opacity: 1, y: -4, x: -2, scale: 1 }, 
-      {
-        opacity: 1,
-        y: 0,
-        x: 0,
-        scale: 1,
-        duration: 2,
-        repeat: -1,
-        yoyo: true,
-        ease: "power2.inOut",
-        delay: 0.4,
-      }
-    );
-
     tl.to(name, {
       fontSize: "clamp(0.2rem, 1vw, 0.3rem)",
       opacity: 0,
@@ -66,7 +52,7 @@ const AnimatedName = () => {
       right: "10rem",
       transform: "translate(0, 0)",
       duration: 0.5,
-      scrub: true,
+      scrub: 2,
       pin: true
     });
 
@@ -113,30 +99,23 @@ const AnimatedName = () => {
         <p className="text-neutral-400" style={{ fontSize: "0.8em" }}>FROM DECEMBER 2025</p>
         <ContactMorph />
       </div>
-      <div ref={myNameRef} className="fixed text-xs top-2 left-12 opacity-0"> 
+      <div ref={myNameRef} className="rounded-full fixed text-xs top-2 left-12 opacity-0 z-50"> 
           <p className="font-light" style={{ fontSize: "1.2em" }}>JAYESH PATIL</p>
           <p className="text-neutral-400" style={{ fontSize: "1.1em" }}>FULL-STACK DEVELOPER</p>
       </div>
       <p className="fixed bottom-6 text-neutral-400 right-12 text-right hidden md:block" style={{ fontSize: "0.8em" }}>SCROLL DOWN</p>
         <div
         ref={nameRef}
-        className="fixed top-28 left-2 z-50 pointer-events-none fixed-name"
+        className="fixed top-10 left-2 z-50 pointer-events-none fixed-name"
         style={{ fontSize: "clamp(3rem, 12vw, 8rem)" }}>
     
         <h1 className="fixed font-bold left-12 tracking-tight leading-none"> 
-          <span ref={subRef} className="font-vanchrome font-medium" style={{ fontSize: "0.7em" }}>HI, I'M</span>
-          {/* <span ref={subRef}
-          className="font-extralight absolute mt-20 px-6 py-6 rounded-2xl 
-                   backdrop-blur-md shadow-lg
-                   text-lg md:text-2xl select-none"
-        style={{
-          fontSize: "0.6em",
-          transform: "translateY(-20%) translateX(5%)",
-        }}>HI, I'M</span> */}
+          <span ref={(el) => el && subRef.current.push(el)} className="font-vanchrome font-medium text-[10vh]">HI, I'M</span>
           <br/>
-          <span className='font-sans text-[clamp(8rem,20vw,20rem)] '>JAYESH</span>
+          <span className='font-sans text-transparent bg-cover bg-center bg-clip-text text-[55vh]' style={{backgroundImage: "url('../../public/batman.png')"}}>JAYESH</span>
+          {/* <span className='font-sans text-transparent bg-cover bg-center bg-clip-text text-[50vh]' style={{backgroundImage: "url('../../public/batman.png')"}}>A</span><span className='font-sans text-[50vh]'>YESH</span> */}
           <br/>
-          <span className='font-sans' style={{ fontSize: "3em" }}>PATIL</span>
+          <span ref={(el) => el && subRef.current.push(el)} className='font-sans text-[27vh]'>PATIL</span> 
         </h1>
     </div>
     </section>
