@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
@@ -6,14 +6,38 @@ import ArcNav from "../ArcNav";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const panels = [
+  {
+    title: "Languages",
+    desc: "Java • JavaScript • Python • C++",
+    bg: "/images/languages.jpg"
+  },
+  {
+    title: "Frontend",
+    desc: "React • Tailwind • GSAP • Framer Motion",
+    bg: "/images/frontend.jpg"
+  },
+  {
+    title: "Backend",
+    desc: "Node.js • Express • FastAPI • MongoDB",
+    bg: "/images/backend.jpg"
+  },
+];
+
 export default function HorizontalTechShowcase() {
   const tittleRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const maintittleRef = useRef<HTMLSpanElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const text = tittleRef.current;
+    const maintitle = maintittleRef.current;
     if (!text) return;
 
-    gsap.from(text, {
+    let viewPortHeight = (window.innerHeight);
+
+    gsap.from(maintitle, {
       scrollTrigger: {
         trigger: text,
         start: "top 80%",
@@ -25,17 +49,80 @@ export default function HorizontalTechShowcase() {
       duration: 1.3,
       ease: "power3.out",
     })
+
+    ScrollTrigger.create({
+      trigger: text,
+      start: `top+=${viewPortHeight/8} top`,
+      end: `bottom+=400`,
+      scrub: true,
+      pin: tittleRef.current,
+      pinSpacing: true,
+      markers: true
+    });
   }, []);
 
+  useEffect(() => {
+    const children = containerRef.current.children;
+
+    gsap.to(children, {
+      flex: (i) => (i === activeIndex ? 3 : 1),
+      duration: 0.7,
+      ease: "power3.out",
+    });
+
+    gsap.to(children[activeIndex].querySelector(".desc"), {
+      opacity: 1,
+      y: 0,
+      duration: 0.5,
+      ease: "power3.out",
+    });
+
+    [...children].forEach((child, i) => {
+      if (i !== activeIndex) {
+        gsap.to(child.querySelector(".desc"), {
+          opacity: 0,
+          y: 20,
+          duration: 0.5,
+        });
+      }
+    });
+  }, [activeIndex]);
+
   return (
-    <section
-      id="techstack"
-      // ref={containerRef}
-      className="relative min-h-screen flex flex-col justify-between px-12 "
-    >
-      <div ref={tittleRef} className="flex justify-evenly top-0">
-        <span className="font-medium font-maintanker text-[30vw]">TECH STACK</span>
+    <section id="techstack" className="relative min-h-screen flex flex-col justify-between px-12 ">
+
+      <div ref={tittleRef} className="relative flex justify-evenly top-0 h-[50vh]">
+        <span ref={maintittleRef} className="font-medium font-maintanker text-[30vw] z-20 pointer-events-none">
+            TECH STACK
+        </span>
       </div>
+
+
+      <div
+      ref={containerRef}
+       className="flex w-full h-[100vh] gap-4 relative z-10"
+    >
+      {panels.map((panel, i) => (
+        <div
+          key={i}
+          onMouseEnter={() => setActiveIndex(i)}
+          style={{ backgroundImage: `url(${panel.bg})` }}
+          className="
+            relative flex flex-col justify-end bg-slate-800 p-6 bg-cover bg-center 
+            rounded-xl transition-all duration-300 cursor-pointer
+          "
+        >
+          <h2 className="text-4xl font-bold">{panel.title}</h2>
+
+          <p className="
+            desc opacity-0 translate-y-5 
+            text-lg transition-all duration-300
+          ">
+            {panel.desc}
+          </p>
+        </div>
+      ))}
+    </div>
     </section>
   );
 }
