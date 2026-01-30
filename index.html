@@ -16,7 +16,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Bungee+Outline&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Bungee+Outline&family=Climate+Crisis:YEAR@1979&family=Doto:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <meta property="og:title" content="Portfolio - Jayesh Patil" />
     <meta property="og:description" content="Minimal portfolio showcasing creative work and projects" />
@@ -54,13 +54,21 @@
         <feGaussianBlur in="distorted" stdDeviation="0.2" />
       </filter>
     </svg> -->
+    <template>
+      <svg style="display: none;">
+        <filter id="glass-distortion">
+          <feImage href="/src/assets/noise.png" preserveAspectRatio="none"/>
 
-    <svg width="0" height="0">
+          <feDisplacementMap ub="SourceGraphic" scale="200" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </svg>
+    </template>
+    <!-- <svg width="0" height="0">
       <filter id="liquid-distort">
         <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="3" result="noise" />
         <feDisplacementMap in="SourceGraphic" in2="noise" scale="12" />
       </filter>
-    </svg>
+    </svg> -->
     
     
 

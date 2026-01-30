@@ -23,7 +23,7 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="fixed top-28 right-12 z-50 w-[6vh] h-[2.5vh] rounded-full
+      className="fixed top-28 right-3 md:right-12 z-50 w-[6vh] h-[2.5vh] rounded-full
                  flex items-center justify-between"
       style={{
                   boxShadow: isDark
