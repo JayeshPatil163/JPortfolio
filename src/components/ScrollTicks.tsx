@@ -31,12 +31,7 @@ const ScrollZoomIndicator = () => {
             opacity: isActive ? 1 : 0.3,
             backgroundColor: isActive
               ? "red"
-              : getComputedStyle(document.documentElement)
-                  .getPropertyValue("--line-color")
-                  .trim(),
-            transformOrigin: "right center",
-            duration: 0.25,
-            ease: "power2.out",
+              : "gray",
           });
         });
       },
@@ -44,12 +39,12 @@ const ScrollZoomIndicator = () => {
   }, []);
 
   return (
-    <div className="fixed right-10 top-1/3 flex flex-col items-end z-50 pointer-events-none">
+    <div className="fixed right-3 md:right-12 top-1/3 flex flex-col items-end z-50 pointer-events-none">
       {Array.from({ length: 20 }).map((_, i) => (
         <div
           key={i}
           ref={(el) => (linesRef.current[i] = el!)}
-          className="scroll-line w-8 h-[1px] my-[10px] rounded-full transition-all duration-50"
+          className="scroll-line bg-black dark:bg-white bg-cover w-4 md:w-8 h-[1px] my-1 md:my-[10px] rounded-full transition-all duration-50"
         />
       ))}
     </div>

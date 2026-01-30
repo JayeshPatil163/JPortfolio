@@ -34,10 +34,13 @@ const Hero = () => {
     const text = devtag.current;
     if (!text) return;
 
+    const mm = gsap.matchMedia();
+    let onReady;
+    mm.add("(min-width: 768px)", () => {
     let viewPortHeight = (window.innerHeight - 107)/3;
     console.log("Viewport Height:", viewPortHeight);
 
-    const onReady = () => {
+    onReady = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: text,
@@ -79,6 +82,7 @@ const Hero = () => {
 
       ScrollTrigger.refresh();
     };
+    });
 
 
     if (document.fonts && document.fonts.ready) {
@@ -89,28 +93,31 @@ const Hero = () => {
 
     return () => {
       window.removeEventListener("load", onReady);
+      mm.revert();
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
   }, []);
 
   return (
-    <section
+<section
   id="hero"
-  className="relative min-h-screen flex flex-col justify-between px-12 pb-30"
+  className="relative min-h-screen flex flex-col justify-between px-3 md:px-12 pb-20"
 >
 
-  <div ref={devtag} className="relative flex flex-col right-0 pt-10 text-right leading-none">
-    <h1 className="font-vanchrome tracking-tight text-[30vh]" style={{ textShadow: '4px 4px 10px rgba(0,0,0,0.5)' }}>FULL <span className="text-red-500">—</span> STACK</h1>
-    <h1 className="font-sans font-bold tracking-tight text-[30vh]" style={{ textShadow: '4px 4px 10px rgba(0,0,0,0.5)' }}>DEVELOPER</h1>
+  <div
+  ref={devtag}
+  className="relative flex flex-col pt-10 leading-none text-left md:text-right">
+    <h1 className="font-vanchrome tracking-tight text-[19vw]" style={{ textShadow: '4px 4px 10px rgba(0,0,0,0.5)' }}>FULL <span className="text-red-500">—</span> STACK</h1>
+    <h1 className="font-sans font-bold tracking-tight text-[19vw]" style={{ textShadow: '4px 4px 10px rgba(0,0,0,0.5)' }}>DEVELOPER</h1>
   </div>
 
-  <div className="justify-between text-xs md:text-sm pt-[25vh] pb-[10vh] pr-10">
-    <span className="font-bold max-w-3 text-[2vw]">Driven full-stack & open-source dev</span>
-    <p className="text-[0.9vw] pt-4 justify-start text-neutral-400">
-      I'm a creative developer passionate about building modern, interactive<br/>
-      web apps powered by AI. 500+ problems solved, top 14% on LeetCode.<br/>
-      Winner of AlgoBharat HackSeries & multiple hackathons.<br/>
-      Focused on creating interactive experiences, impactful and innovative<br/>
+  <div className="justify-between pt-4 md:pt-[15vw] md:pb-[10vh] md:pr-10">
+    <span className="font-bold max-w-3 text-lg md:text-4xl">Driven full-stack & open-source dev</span>
+    <p className="text-sm md:text-lg md:max-w-[50vh] pt-4 justify-start text-neutral-400">
+      I'm a creative developer passionate about building modern, interactive
+      web apps powered by AI. 500+ problems solved, top 14% on LeetCode.
+      Winner of AlgoBharat HackSeries & multiple hackathons.
+      Focused on creating interactive experiences, impactful and innovative
       solutions and exploring emerging tech.
     </p>
   </div>
@@ -118,7 +125,7 @@ const Hero = () => {
 
     <div className="mt-10">
 
-      <div className="flex items-center gap-5 text-[0.9vw] mb-[4vh]">
+      <div className="flex items-center gap-5 text-2xl md:text-[0.9vw] mb-[4vh]">
         {icons.map((it, i) => (
           <motion.a
             key={it.key}
@@ -128,7 +135,7 @@ const Hero = () => {
             custom={i}
             initial="hidden"
             exit="exit"
-            className="w-[1.5vw] h-[1.5vw] flex rounded-full transition-shadow"
+            className="w-5 h-5 md:w-[1.5vw] md:h-[1.5vw] flex rounded-full transition-shadow"
             aria-label={it.key}
           >
           {it.icon}
@@ -136,15 +143,15 @@ const Hero = () => {
               ))}
       </div>
 
-      <div className="flex items-center gap-2 text-[0.9vw] mb-8">
-        <MapPin className="w-[1vw] h-[1vw] drop-shadow-sm" />
+      <div className="flex items-center gap-2 text-base md:text-[0.9vw] mb-8">
+        <MapPin className="md:w-[1vw] md:h-[1vw] drop-shadow-sm" />
         <span className="tracking-wide">Pune, Maharashtra, India</span>
       </div>
 
       <div className="flex items-center gap-4 pb-60">
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button className="flex items-center gap-2 transition-all rounded-xl px-[1.5vw] py-[0.8vw] shadow-sm hover:bg-[url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhX7S3kIzPC3Ajg23qRgmeOrMR4EKH_DIqC54Fa3gU1cSsEk_ub1nK5ENqcOIRjmAA3-zFwb147RfRn6F4zakyRAi1OJ_TScW64Di-FVkvMxAdrGm8WsSEMM3pwJFC9UjakItuz1_Lp4eSh/w919/the-batman-2021-logo-uhdpaper.com-4K-3.2948-wp.thumbnail.jpg')] bg-cover bg-center">
+            <Button className="flex items-center gap-2 transition-all rounded-xl md:px-[1.5vw] py-[0.8vw] shadow-sm hover:bg-[url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhX7S3kIzPC3Ajg23qRgmeOrMR4EKH_DIqC54Fa3gU1cSsEk_ub1nK5ENqcOIRjmAA3-zFwb147RfRn6F4zakyRAi1OJ_TScW64Di-FVkvMxAdrGm8WsSEMM3pwJFC9UjakItuz1_Lp4eSh/w919/the-batman-2021-logo-uhdpaper.com-4K-3.2948-wp.thumbnail.jpg')] bg-cover bg-center">
               <FileText className="w-[1vw] h-[1vw]" />
               Resume
             </Button>

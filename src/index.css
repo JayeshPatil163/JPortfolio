@@ -9,6 +9,15 @@
 
     --color: #ff0000;
 
+    --skill-gradient: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.15) 0%,
+      rgba(0, 0, 0, 0.15) 50%,
+      rgba(0, 0, 0, 0.85) 50%
+    );
+
+    --marquee-fade: #f5f5f5c3;
+
     --card: var(--background);
     --card-foreground: var(--foreground);
 
@@ -23,6 +32,8 @@
     --line: 0 0% 80%;
     --line-subtle: 0 0% 95%;
 
+    --card-color: rgb(160, 160, 160);
+
     --radius: 0rem;
   }
 
@@ -31,6 +42,15 @@
     --foreground: 0 0% 100%;
 
     --color: #00ff4c;
+
+    --skill-gradient: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.164) 0%,
+      rgba(239, 239, 239, 0.891) 50%,
+      rgb(255, 255, 255) 50%
+    );
+
+    --marquee-fade: #181818;
 
     --card: var(--background);
     --card-foreground: var(--foreground);
@@ -41,6 +61,8 @@
     --border: 0 0% 15%;
     --muted: 0 0% 10%;
     --muted-foreground: 0 0% 65%;
+
+    --card-color: rgb(59, 59, 59);
 
     --line-color: rgb(204, 204, 204);
     --line: 0 0% 50%;
@@ -62,6 +84,18 @@
   transition: background-color 0.2s ease, scale 0.2s ease, opacity 0.2s ease;
 }
 
+html, body {
+  overflow: auto;
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+
 
 @layer base {
   * {
@@ -79,9 +113,7 @@
 }
 
 .liquid {
-  filter: url(#glass-distortion);
-  -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
+  backdrop-filter: brightness(1.1) blur(2px) url(#glass-distortion);
 }
 
 
@@ -143,6 +175,35 @@
   font-display: swap;
 }
 
+.climate-crisis-regular {
+  font-family: "Climate Crisis", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings:
+    "YEAR" 1979;
+}
+
+.doto-bold {
+  font-family: "Doto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 1000;
+  font-style: normal;
+  font-variation-settings:
+    "ROND" 100;
+}
+
+/* .panel-shape {
+  clip-path: polygon(0 0, 100% 0, 92% 100%, 0% 100%);
+  transition: clip-path 300ms ease;
+  will-change: transform, clip-path;
+}
+
+@media (max-width: 900px) {
+  .panel-shape {
+    clip-path: polygon(0 0, 100% 0, 94% 100%, 0% 100%);
+  }
+} */
 
 
 
@@ -178,3 +239,137 @@
 .fixed-name {
   will-change: transform, opacity;
 }
+
+
+.logo-marquee {
+  width: 100%;
+  height: 100%;
+  padding: 2rem 0;
+  position: relative;
+}
+
+.logo-track {
+  display: flex;
+  margin-top: 20%;
+  width: max-content;
+  animation: scroll 25s linear infinite;
+}
+
+.logo-card {
+  width: 10vw;
+  height: 10vw;
+  margin: 0 10px;
+  border-radius: 24px;
+  background: var(--card-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.logo-card img {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+}
+
+.logo-card:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+
+.logo-marquee::before,
+.logo-marquee::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  /* border-radius: 0 24px 24px 0; */
+  /* overflow: hidden; */
+  z-index: 2;
+}
+
+.logo-marquee::before {
+  left: 0;
+  background: linear-gradient(to right, var(--marquee-fade), transparent);
+}
+
+.logo-marquee::after {
+  right: 0;
+  background: linear-gradient(to left, var(--marquee-fade), transparent);
+}
+
+
+
+
+
+/* .skill-title {
+  color: transparent;
+  background-image: var(--skill-gradient);
+  background-size: 200% 100%;
+  background-position-x: 0%;
+  background-clip: text;
+  -webkit-background-clip: text;
+} */
+.skill-title {
+  clip-path: inset(0 0 100% 0);
+}
+
+.noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/noise.png");
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+.skill-card {
+  @apply
+    overflow-hidden
+    rounded-[5vh]
+    bg-gray-100 dark:bg-neutral-900
+    shadow-lg
+    ring-1 ring-black/0 dark:ring-white/10
+    transition-all duration-300
+    hover:-translate-y-1
+    hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)];
+}
+
+/* .skill-card::after {
+  content: "";
+  position: absolute;
+  inset: 4px; /* THIS is your “padding of 1” feel *
+  background: #fc2f2f; /* green-300, change freely *
+  border-radius: calc(5vh - 4px);
+
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+
+  z-index: 0;
+}
+
+/* hover state *
+.skill-card:hover::after {
+  transform: scaleX(1);
+}
+
+/* keep content above fill *
+.skill-card > * {
+  position: relative;
+  z-index: 1;
+} */
